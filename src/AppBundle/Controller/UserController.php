@@ -44,9 +44,11 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush($user);
+            $userManager=$this->get('fos_user.user_manager');
+            $user->setPlainPassword($user->getPassword());
+            $userManager->updateUser($user);
+            //$em->persist($user);
+            //$em->flush($user);
 
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
