@@ -12,7 +12,10 @@ class AppBundleCest
     }
 
     // tests
-    public function tryToTest(AcceptanceTester $I)
+    public function RemovalTest(AcceptanceTester $I)
     {
+      $I->wantTo('Check if / is not active.');
+      $I->amOnPage('/');
+      $I->see('404 Not Found');
     }
 }
