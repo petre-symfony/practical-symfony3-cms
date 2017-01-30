@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -36,7 +37,37 @@ class User extends BaseUser
      */
     private $lastname;
 
-
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $modified;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist(){
+      //update the modified time
+      $this->setModified(new \DateTime());
+      
+      //for newly created entries
+      if ($this->getCreated() == null){
+        $this->setCreated(new \DateTime('now'));
+      }
+    }
+    
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate(){
+      //update the modified time
+      $this->setModified(new \DateTime());
+    }
+    
     /**
      * Get id
      *
