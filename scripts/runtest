@@ -1,0 +1,3 @@
+#!/bin/bash
+scripts/resetapp
+vendor/bin/codecept run acceptance $@
