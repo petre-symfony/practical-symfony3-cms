@@ -23,7 +23,7 @@ class UserType extends AbstractType
           ->add('password', RepeatedType::class, array(
             'type'              => PasswordType::class,
             'invalid_message'   => 'The password fields must match.',
-            'required'          => true,
+            'required'          => $options['passwordRequired'],
             'first_options'     => array('label' => 'Password'),
             'second_options'    => array('label' => 'Repeat Password')  
           ))      
@@ -40,14 +40,4 @@ class UserType extends AbstractType
             'passwordRequired' => true
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'appbundle_user';
-    }
-
-
 }
