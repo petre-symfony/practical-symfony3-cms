@@ -94,5 +94,19 @@ class User extends BaseUser
     {
         return $this->lastname;
     }
+    /**
+     * Override parent's method. Don't set passwd if its null
+     * 
+     * @param string $password
+     * @return $this
+     */
+    public function setPassword($password){
+      if ($password){
+        $this->password = $password;
+      }
+      return $this;
+    }
+    
+    
 }
 

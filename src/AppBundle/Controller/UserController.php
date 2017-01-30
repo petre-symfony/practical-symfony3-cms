@@ -84,11 +84,15 @@ class UserController extends Controller
     public function editAction(Request $request, User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('AppBundle\Form\UserType', $user);
+        $editForm = $this->createForm('AppBundle\Form\UserType', $user, array('passwordRequired' => false));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $userManager = $this->get('fos_user.user_manager');
+            //we get the values the user submitted
+            $user->setPlainPassword($request->request->get('user')['password']['first']);
+            $userManager->updateUser($user);
+            //$this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
