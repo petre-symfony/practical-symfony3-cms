@@ -26,5 +26,17 @@ class IWantToManageAllUsersCest
       $I->canSeeNumberOfElements('//table/tbody/tr',4);
     }
     
-    
+    /**
+     * Scenario 10.6.2
+     * @before login
+     */
+    public function showTest3User(AcceptanceTester $I){
+      //go to user listing page
+      $I->amOnPage('/admin/?action=list&entity=User');
+      //click on show button
+      $I->click('Show');
+      $I->waitForText('test3@songbird.app');
+      $I->canSee('test3@songbird.app');
+    }
+
 }
