@@ -9,7 +9,9 @@
   <span class="sr-only">{{ 'user.logged_in_as'|trans(domain = 'EasyAdminBundle') }}</span>
   <i class="hidden-xs fa fa-user">
     {% if app.user %}
-      <a href="">{{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}</a>
+      <a href="{{ path('easyadmin') }}/?entity=User&action=show&id={{ app.user.id }}">
+        {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
+      </a>
     {% else %}
       {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle')}}
     {% endif %}  
