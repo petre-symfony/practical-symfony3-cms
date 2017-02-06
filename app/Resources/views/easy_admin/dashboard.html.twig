@@ -1,0 +1,13 @@
+{% extends 'easy_admin/layout.html.twig' %}
+
+{% block main %}
+  <p>
+    Dear {{ app.user.firstname }} {{ app.user.lastname }},
+  </p>
+  <p>
+    You are logged in at {{ app.user.lastLogin|date('Y-m-d H:i:s')}}
+  </p>
+  <p>
+    The whole project can be forked from <a href="https://github.com/bernardpehsongbird">github</a>
+  </p>
+{% endblock %}  
