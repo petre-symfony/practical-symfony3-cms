@@ -1,0 +1,2 @@
+tests/acceptance/As_An_Admin/IWantToManageAllUsersCest.php:listAllProfiles
+tests/acceptance/As_An_Admin/IWantToManageAllUsersCest.php:showTest3User
