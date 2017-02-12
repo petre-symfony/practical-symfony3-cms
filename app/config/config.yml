@@ -10,6 +10,7 @@ parameters:
     locale: en
     supported_lang: ['en', 'fr']
     admin_path: admin
+    app.profile_image.path: /uploads/profiles
 
 framework:
     #esi:             ~
@@ -80,3 +81,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    
+#Vich Configuration
+vich_uploader:
+  db_driver: orm
+  mappings: 
+    profile_images:
+      uri_prefix: '%app.profile_image.path%'
+      upload_destination: '%kernel.root_dir%/../web/uploads/profiles'
+      # this will allow all uploaded filenames to be unique
+      namer: vich_uploader.namer_uniqid
