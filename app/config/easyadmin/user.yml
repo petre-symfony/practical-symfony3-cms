@@ -1,0 +1,65 @@
+easy_admin:
+  design:
+    brand_color: '#337ab7'
+    assets: 
+      css:
+        - /bundles/app/css/style.css
+  entities:
+    User:
+      class: AppBundle\Entity\User
+      label: admin.link.user_management
+      #for new user
+      new:
+        fields:
+          - username
+          - firstname
+          - lastname
+          - { property: 'plainPassword', type: 'repeated', type_options: {type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: {label: 'Password'}, second_options: {label: 'Repeat Password'}, invalid_message: 'The password fields must match'}}
+          - { property: 'email', type: 'email', type_options: {trim: true}}
+          - { property: 'imageFile', type: 'vich_image'}
+          - roles
+          - enabled
+      edit:
+        actions: ['-delete', '-list']
+        fields: 
+          - username
+          - firstname
+          - lastname
+          - { property: 'plainPassword', type: 'repeated', type_options: {type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: {label: 'Password'}, second_options: {label: 'Repeat Password'}, invalid_message: 'The password fields must match'}}
+          - { property: 'email', type: 'email', type_options: {trim: true}}
+          - { property: 'imageFile', type: 'vich_image' }
+          - roles
+          - enabled
+          - locked
+          - expired
+      show:
+        actions: ['edit', '-delete', '-list']
+        fields:
+          - id
+          - { property: 'image', type: 'image', base_path: '%app.profile_image.path%'}
+          - username
+          - firstname
+          - lastname
+          - email
+          - roles
+          - enabled
+          - locked
+          - expired
+          - { property: 'last_login', type: 'datetime'}
+          - modified
+          - created
+      list:
+        title: 'User Listing'
+        actions: ['show']
+        fields:
+          - id
+          - { property: 'image', type: 'image', base_path: '%app.profile_image.path%' }
+          - username
+          - email
+          - firstname
+          - lastname
+          - enabled
+          - locked
+          - expired
+          - roles
+          - { property: 'last_login', type: 'datetime'}

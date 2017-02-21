@@ -1,0 +1,13 @@
+{% extends 'easy_admin/layout.html.twig' %}
+
+{% block main %}
+  <p>
+    Dear {{ app.user.firstname }} {{ app.user.lastname }},
+  </p>
+  <p>
+    {{ 'dashboard.welcome.last_login' | trans({}, 'app') }} {{ app.user.lastLogin|date('Y-m-d H:i:s')}}
+  </p>
+  <p>
+    {{ 'dashboard.welcome.credit' | trans({}, 'app') | raw }}
+  </p>
+{% endblock %}  

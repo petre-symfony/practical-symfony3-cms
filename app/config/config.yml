@@ -2,15 +2,19 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: easyadmin/ }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    supported_lang: ['en', 'fr']
+    admin_path: admin
+    app.profile_image.path: /uploads/profiles
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -26,18 +30,27 @@ framework:
     trusted_proxies: ~
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        # we have to use the system session storage because the default doesn't work with vagrant
         handler_id:  session.handler.native_file
-        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+        #save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
     fragments:       ~
     http_method_override: true
     assets: ~
     php_errors:
         log: true
+        
+# fosuser config
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\User
 
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+      supported_lang: %supported_lang%
 
 # Doctrine Configuration
 doctrine:
@@ -68,3 +81,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    
+#Vich Configuration
+vich_uploader:
+  db_driver: orm
+  mappings: 
+    profile_images:
+      uri_prefix: '%app.profile_image.path%'
+      upload_destination: '%kernel.root_dir%/../web/uploads/profiles'
+      # this will allow all uploaded filenames to be unique
+      namer: vich_uploader.namer_uniqid

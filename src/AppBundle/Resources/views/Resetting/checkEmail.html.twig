@@ -1,0 +1,23 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block title %}
+  {{ 'resetting.request.submit'|trans }}
+{% endblock %}
+
+{% block stylesheet %
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('bundles/app/css/signin.css') }}" /> 
+{% endblock %}  
+
+{% block content %}
+  <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Songbird" class="center-block img-responsive" />
+  
+  <div class="container ">
+    <h3>&nbsp;</h3>
+    <div class="text-center">
+      {{ 'resetting.check_email'|trans({'%email%': email}) }}
+    </div>
+  </div>
+{% endblock %}  
